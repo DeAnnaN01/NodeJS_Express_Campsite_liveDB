@@ -1,4 +1,6 @@
 {
     "editor.tabCompletion": "on",
-    "diffEditor.codeLens": true
+    "diffEditor.codeLens": true,
+    "eslint.enable": false,
+    "standard.enable": false
 }
