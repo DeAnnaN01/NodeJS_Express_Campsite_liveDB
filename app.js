@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -11,8 +13,14 @@ const promotionRouter = require('./routes/promotionRouter');
 const partnerRouter = require('./routes/partnerRouter');
 
 const mongoose = require('mongoose');
+const main = require('./main');
 
-const url = 'mongodb://localhost:27017/nucampsite';
+// const url = 'mongodb://localhost:27017/nucampsite';
+
+
+
+
+const url = process.env.MONGO_URI;
 const connect = mongoose.connect(url, {
     useCreateIndex: true,
     useFindAndModify: false,
@@ -20,11 +28,16 @@ const connect = mongoose.connect(url, {
     useUnifiedTopology: true
 });
 
+
+
+
+
 connect.then(() => console.log('Connected correctly to server'),
     err => console.log(err)
 );
 
 var app = express();
+exports.app = app;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,5 +70,12 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+
+
+
+
+
+
 
 module.exports = app;
