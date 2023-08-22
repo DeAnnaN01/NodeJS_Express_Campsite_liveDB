@@ -31,10 +31,6 @@ const campsiteSchema = new Schema({
         required: true,
         unique: true
     },
-    description: {
-        type: String,
-        required: true
-    },
     image: {
         type: String,
         required: true
@@ -43,14 +39,18 @@ const campsiteSchema = new Schema({
         type: Number,
         required: true
     },
+    featured: {
+        type: Boolean,
+        default: false
+    },
     cost: {
         type: Currency,
         required: true,
         min: 0
     },
-    featured: {
-        type: Boolean,
-        default: false
+    description: {
+        type: String,
+        required: true
     },
     comments: [commentSchema]
 }, {

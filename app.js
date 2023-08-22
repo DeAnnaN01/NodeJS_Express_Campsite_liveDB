@@ -1,13 +1,13 @@
 require('dotenv').config();
 
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 const campsiteRouter = require('./routes/campsiteRouter');
 const promotionRouter = require('./routes/promotionRouter');
 const partnerRouter = require('./routes/partnerRouter');
@@ -15,35 +15,38 @@ const partnerRouter = require('./routes/partnerRouter');
 const mongoose = require('mongoose');
 const main = require('./main');
 
+const app = express();
+exports.app = app;
+
+
 // const url = 'mongodb://localhost:27017/nucampsite';
+const url = process.env.MONGO_URI
 
+const hostname = 'localhost';
+const port = 3000;
 
-
-
-const url = process.env.MONGO_URI;
-const connect = mongoose.connect(url, {
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-
-
+const connect =
+    mongoose.connect(url, {
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    });
+    app.listen(port, hostname, () => {
+        console.log(`Server running at http://${hostname}:${port}/`);
+    });
 
 
 connect.then(() => console.log('Connected correctly to server'),
     err => console.log(err)
 );
 
-var app = express();
-exports.app = app;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -70,12 +73,6 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-
-
-
-
-
 
 
 module.exports = app;
