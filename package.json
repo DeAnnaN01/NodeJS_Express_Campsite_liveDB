@@ -13,8 +13,11 @@
         "http-errors": "~1.6.3",
         "jade": "~1.11.0",
         "mongodb": "^5.8.0",
-        "mongoose": "^5.10.9",
+        "mongoose": "^5.13.20",
         "mongoose-currency": "^0.2.0",
-        "morgan": "~1.9.1"
+        "morgan": "~1.9.1",
+        "node": "16.13.2",
+        "nodeJS": "^1.0.0",
+        "nodemon": "^3.0.1"
     }
 }
